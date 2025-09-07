@@ -27,11 +27,28 @@ class Account:
                 else:
                     pass
                 
-    def update_expense():
-        pass
+    def update_expense(self, expense, new_key=None, new_amount=None):
+        if expense not in self.expenses:
+            raise KeyError(f"Expense '{expense}' not found.")
+
+        # Handle optional renaming
+        if new_key is not None and new_key.strip():
+            self.expenses[new_key] = self.expenses.pop(expense)
+            expense = new_key  # update reference
+
+        # Handle optional amount update
+        if new_amount is not None:
+            try:
+                self.expenses[expense] = float(new_amount)
+            except ValueError:
+                raise ValueError("Amount must be a number.")
 
 
+    def display_expenses(self):
+        print(f"These are all your expenses: {self.expenses}")
 
+
+print("skript erfolgreich ausgeführt")
 
 
 
